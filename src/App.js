@@ -1,23 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useRef } from 'react';
 import './App.css';
 function App() {
-  const [count, setCount] = useState(0)
-  const [item, setItem] = useState(10)
+  const inputRef = useRef(null)
+  const inputRef2 = useRef(null)
+  function submitForm(e) {
+    e.preventDefault()
+    console.log("input controlled 1 value:", inputRef.current.value)
+    console.log("input controlled 2 value:", inputRef2.current.value)
+    const input3 = document.getElementById('input3').value
+    console.log("input controlled 3 value:", input3)
+  }
 
-  const multiCountMemo = useMemo(function multiCount() {
-    console.log("multiCount")
-    return count * 5
-  }, [count])
   return (
     <div className="App">
-      <h1>useMemo Hook in React</h1>
-      <h2>Count: {count}</h2>
-      <h2>Item: {item}</h2>
-      <h2>{multiCountMemo}</h2>
-      <button onClick={() => setCount(count + 1)}>Update Count</button>
-      <button onClick={() => setItem(item * 10)}>Update Item</button>
+      <h1>Uncontrolled Component</h1>
+      <form onSubmit={submitForm}>
+        <input ref={inputRef} type="text" /> <br></br> <br></br>
+        <input ref={inputRef2} type="text" /> <br></br> <br></br>
+        <input id="input3" type="text" /><br></br> <br></br>
+        <button>Submit</button>
+      </form>
     </div>
   );
 }
+
 
 export default App;
